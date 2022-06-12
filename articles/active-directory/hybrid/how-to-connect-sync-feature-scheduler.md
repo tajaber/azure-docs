@@ -26,7 +26,7 @@ This feature was introduced with build 1.1.105.0 (released February 2016).
 ## Overview
 Azure AD Connect sync synchronize changes occurring in your on-premises directory using a scheduler. There are two scheduler processes, one for password sync and another for object/attribute sync and maintenance tasks. This topic covers the latter.
 
-In earlier releases, the scheduler for objects and attributes was external to the sync engine. It used Windows task scheduler or a separate Windows service to trigger the synchronization process. The scheduler is with the 1.1 releases built-in to the sync engine and do allow some customization. The new default synchronization frequency is 30 minutes.
+In earlier releases, the scheduler for objects and attributes was external to the sync engine. It used Windows task scheduler or a separate Windows service to trigger the synchronization process. The scheduler is (with the 1.1 releases or later) built-in to the sync engine and do allow some customization. The new default synchronization frequency is 30 minutes.
 
 The scheduler is responsible for two tasks:
 
