@@ -2,11 +2,11 @@
  title: include file
  description: include file
  services: storage
- author: roygara
- ms.service: storage
+ author: khdownie
+ ms.service: azure-storage
  ms.topic: include
  ms.date: 09/04/2019
- ms.author: rogarana
+ ms.author: kendownie
  ms.custom: include file
 ---
 

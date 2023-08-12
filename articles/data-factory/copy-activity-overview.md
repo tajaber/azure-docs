@@ -7,7 +7,7 @@ ms.service: data-factory
 ms.subservice: data-movement
 ms.custom: synapse
 ms.topic: conceptual
-ms.date: 09/09/2021
+ms.date: 09/20/2022
 ms.author: jianleishen
 ---
 
@@ -37,6 +37,9 @@ To copy data from a source to a sink, the service that runs the Copy activity pe
 3. Writes data to the sink/destination data store.
 
 :::image type="content" source="media/copy-activity-overview/copy-activity-overview.png" alt-text="Copy activity overview":::
+
+> [!NOTE]
+> In case if a self-hosted integration runtime is used in either source or sink data store within a copy activity, than both the source and sink must be accessible from the server hosting the integartion runtime for the copy activity to be successful.
 
 ## Supported data stores and formats
 
@@ -238,12 +241,14 @@ To configure it programmatically, add the `additionalColumns` property in your c
     }
 ]
 ```
+>[!TIP]
+>After configuring additional columns remember to map them to you destination sink, in the Mapping tab.
 
 ## Auto create sink tables
 
 When copying data into SQL database/Azure Synapse Analytics, if the destination table does not exist, copy activity supports automatically creating it based on the source data. It aims to help you quickly get started to load the data and evaluate SQL database/Azure Synapse Analytics. After the data ingestion, you can review and adjust the sink table schema according to your needs.
 
-This feature is supported when copying data from any source into the following sink data stores. You can find the option on *ADF authoring UI* –> *Copy activity sink* –> *Table option* –> *Auto create table*, or via `tableOption` property in copy activity sink payload.
+This feature is supported when copying data from any source into the following sink data stores. You can find the option on *ADF authoring UI* -> *Copy activity sink* -> *Table option* -> *Auto create table*, or via `tableOption` property in copy activity sink payload.
 
 - [Azure SQL Database](connector-azure-sql-database.md)
 - [Azure SQL Database Managed Instance](connector-azure-sql-managed-instance.md)

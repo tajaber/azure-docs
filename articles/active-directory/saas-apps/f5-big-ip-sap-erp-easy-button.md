@@ -9,7 +9,7 @@ ms.service: active-directory
 ms.subservice: saas-app-tutorial
 ms.workload: identity
 ms.topic: tutorial
-ms.date: 03/28/2022
+ms.date: 11/21/2022
 ms.author: jeedes
 ---
 
@@ -25,7 +25,7 @@ Integrating a BIG-IP with Azure Active Directory (Azure AD) provides many benefi
 
 * Manage identities and access from a single control plane, the [Azure portal](https://portal.azure.com/)
 
-To learn about all the benefits, see the article on [F5 BIG-IP and Azure AD integration](/azure/active-directory/manage-apps/f5-aad-integration) and [what is application access and single sign-on with Azure AD](/azure/active-directory/active-directory-appssoaccess-whatis).
+To learn about all the benefits, see the article on [F5 BIG-IP and Azure AD integration](../manage-apps/f5-integration.md) and [what is application access and single sign-on with Azure AD](/azure/active-directory/active-directory-appssoaccess-whatis).
 
 ## Scenario description
 
@@ -41,7 +41,7 @@ The SHA solution for this scenario is made up of the following:
 
 **SAP ERP application:** BIG-IP published service to be protected by and Azure AD SHA.
 
-**Azure AD:** Security Assertion Markup Language (SAML) Identity Provider (IdP) responsible for verification of user credentials, Conditional Access (CA), and SAML based SSO to the BIG-IP.
+**Azure AD:** Security Assertion Markup Language (SAML) Identity Provider (IdP) responsible for verification of user credentials, Conditional Access, and SAML based SSO to the BIG-IP.
 
 **BIG-IP:** Reverse proxy and SAML service provider (SP) to the application, delegating authentication to the SAML IdP before performing header-based SSO to the SAP service.
 
@@ -64,7 +64,7 @@ Prior BIG-IP experience isn’t necessary, but you will need:
 
 * An Azure AD free subscription or above
 
-* An existing BIG-IP or [deploy a BIG-IP Virtual Edition (VE) in Azure](/azure/active-directory/manage-apps/f5-big-ip-kerberos-advanced/f5-bigip-deployment-guide)
+* An existing BIG-IP or [deploy a BIG-IP Virtual Edition (VE) in Azure](../manage-apps/f5-bigip-deployment-guide.md)
 
 * Any of the following F5 BIG-IP license offers
 
@@ -80,7 +80,7 @@ Prior BIG-IP experience isn’t necessary, but you will need:
 
 * An account with Azure AD Application admin [permissions](/azure/active-directory/users-groups-roles/directory-assign-admin-roles#application-administrator)
 
-* An [SSL Web certificate](/azure/active-directory/manage-apps/f5-bigip-deployment-guide#ssl-profile) for publishing services over HTTPS, or use default BIG-IP certs while testing
+* An [SSL Web certificate](../manage-apps/f5-bigip-deployment-guide.md#ssl-profile) for publishing services over HTTPS, or use default BIG-IP certs while testing
 
 * An existing SAP ERP environment configured for Kerberos authentication
 
@@ -99,7 +99,7 @@ Before a client or service can access Microsoft Graph, it must be trusted by the
 
 The Easy Button client must also be registered in Azure AD, before it is allowed to establish a trust between each SAML SP instance of a BIG-IP published application, and Azure AD as the SAML IdP.
 
-1. Sign-in to the [Azure AD portal](https://portal.azure.com/) using an account with Application Administrative rights
+1. Sign in to the [Azure portal](https://portal.azure.com/) using an account with Application Administrative rights
 
 2. From the left navigation pane, select the **Azure Active Directory** service
 
@@ -226,7 +226,7 @@ Easy Button provides a set of pre-defined application templates for Oracle Peopl
 
 When a user successfully authenticates to Azure AD, it issues a SAML token with a default set of claims and attributes uniquely identifying the user. The **User Attributes & Claims tab** shows the default claims to issue for the new application. It also lets you configure more claims.
 
-As our example AD infrastructure is based on a .com domain suffix used both, internally and externally, we don’t require any additional attributes to achieve a functional KCD SSO implementation. See the [advanced tutorial](/azure/active-directory/manage-apps/f5-big-ip-kerberos-advanced/f5-big-ip-kerberos-advanced) for cases where you have multiple domains or user’s log-in using an alternate suffix. 
+As our example AD infrastructure is based on a .com domain suffix used both, internally and externally, we don’t require any additional attributes to achieve a functional KCD SSO implementation. See the [advanced tutorial](../manage-apps/f5-big-ip-kerberos-advanced.md) for cases where you have multiple domains or user’s log-in using an alternate suffix. 
 
    ![Screenshot for user attributes and claims](./media/f5-big-ip-easy-button-sap-erp/user-attributes-claims.png)
    
@@ -243,9 +243,9 @@ The **Additional User Attributes** tab can support a variety of distributed syst
 
 #### Conditional Access Policy
 
-CA policies are enforced post Azure AD pre-authentication, to control access based on device, application, location, and risk signals.
+Conditional Access policies are enforced post Azure AD pre-authentication, to control access based on device, application, location, and risk signals.
 
-The **Available Policies** view, by default, will list all CA policies that do not include user based actions.
+The **Available Policies** view, by default, will list all Conditional Access policies that do not include user based actions.
 
 The **Selected Policies** view, by default, displays all policies targeting All cloud apps. These policies cannot be deselected or moved to the Available Policies list as they are enforced at a tenant level.
 
@@ -256,7 +256,7 @@ To select a policy to be applied to the application being published:
 
 Selected policies should either have an **Include** or **Exclude** option checked. If both options are checked, the selected policy is not enforced.
 
-![ Screenshot for CA policies](./media/f5-big-ip-easy-button-sap-erp/conditional-access-policy.png)
+![ Screenshot for Conditional Access policies](./media/f5-big-ip-easy-button-sap-erp/conditional-access-policy.png)
 
 >[!NOTE]
 >The policy list is enumerated only once when first switching to this tab. A refresh button is available to manually force the wizard to query your tenant, but this button is displayed only when the application has been deployed. 
@@ -330,7 +330,7 @@ For increased security, organizations using this pattern could also consider blo
 
 ## Advanced deployment
 
-There may be cases where the Guided Configuration templates lack the flexibility to achieve more specific requirements. For those scenarios, see [Advanced Configuration for kerberos-based SSO](/azure/active-directory/manage-apps/f5-big-ip-kerberos-advanced).
+There may be cases where the Guided Configuration templates lack the flexibility to achieve more specific requirements. For those scenarios, see [Advanced Configuration for kerberos-based SSO](../manage-apps/f5-big-ip-kerberos-advanced.md).
 
 Alternatively, the BIG-IP gives you the option to disable **Guided Configuration’s strict management mode**. This allows you to manually tweak your configurations, even though bulk of your configurations are automated through the wizard-based templates.
 
@@ -353,7 +353,7 @@ You can fail to access the SHA protected application due to any number of factor
 
 * Ensure there are no duplicate SPNs in your AD environment by executing the following query at the command line on a domain PC: setspn -q HTTP/my_target_SPN
 
-You can refer to our [App Proxy guidance](../app-proxy/application-proxy-back-end-kerberos-constrained-delegation-how-to.md) to validate an IIS application is configured appropriately for KCD. F5’s article on [how the APM handles Kerberos SSO](https://techdocs.f5.com/bigip-15-1-0/big-ip-access-policy-manager-single-sign-on-concepts-configuration/kerberos-single-sign-on-method.html) is also a valuable resource.
+You can refer to our [App Proxy guidance](../app-proxy/application-proxy-back-end-kerberos-constrained-delegation-how-to.md) to validate an IIS application is configured appropriately for KCD. F5’s article on [how the APM handles Kerberos SSO](https://techdocs.f5.com/en-us/bigip-15-1-0/big-ip-access-policy-manager-single-sign-on-concepts-configuration/kerberos-single-sign-on-method.html) is also a valuable resource.
 
 ### Log analysis
 
@@ -379,4 +379,4 @@ If you don’t see a BIG-IP error page, then the issue is probably more related 
 
 2. Select the link for your active session. The **View Variables** link in this location may also help determine root cause KCD issues, particularly if the BIG-IP APM fails to obtain the right user and domain identifiers from session variables
 
-See [BIG-IP APM variable assign examples]( https://devcentral.f5.com/s/articles/apm-variable-assign-examples-1107) and [F5 BIG-IP session variables reference]( https://techdocs.f5.com/bigip-15-0-0/big-ip-access-policy-manager-visual-policy-editor/session-variables.html) for more info.
+See [BIG-IP APM variable assign examples]( https://devcentral.f5.com/s/articles/apm-variable-assign-examples-1107) and [F5 BIG-IP session variables reference]( https://techdocs.f5.com/en-us/bigip-15-0-0/big-ip-access-policy-manager-visual-policy-editor/session-variables.html) for more info.
